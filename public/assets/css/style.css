@@ -1,0 +1,290 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f7f9;
+    font-family: "Almarai", sans-serif !important;
+    overflow-x: hidden;
+}
+
+/* commom css */
+
+.error-border {
+    border: 1px solid red !important;
+}
+
+.gbsc_btn {
+    background-color: #002f86;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 0px;
+}
+
+.gbsc_btn:hover {
+    background-color: #002f86;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 0px;
+}
+
+.form-label {
+    color: rgb(0 0 0);
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 0px !important;
+}
+
+.form-input-custom {
+    border: 1px solid #d1d1d1;
+}
+
+.form-control::placeholder {
+    font-size: 13px;
+    color: #999;
+}
+
+.full-page {
+    min-height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    width: 6px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: rgba(61, 59, 59, 0.3);
+    border-radius: 10px;
+}
+
+.page-heading {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Custom Table */
+
+.table-border-custom {
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    box-shadow: #f1f1f1 10px 10px 10px;
+}
+
+/* Card Container */
+.custom-table-card {
+    background: #fff;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.custom-table thead {
+    background-color: #f8f9fb;
+}
+
+.custom-table thead th {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #4b5563;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e6ed;
+}
+
+.custom-table tbody td {
+    padding: 18px 20px;
+    vertical-align: middle;
+    color: #2d3748;
+    font-weight: 500;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.card-table-footer-custom {
+    padding: 15px 20px;
+    background-color: #f8f9fb;
+    border-top: 1px solid #e0e6ed;
+}
+
+/* Custom Table End */
+
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.76); /* gray overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.img-loader img {
+    width: 60px;
+    height: 60px;
+    animation: rotateLoader 1s linear infinite;
+}
+
+@keyframes rotateLoader {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.error_text {
+    margin-bottom: 0px;
+    margin-top: 1px;
+    color: red;
+    font-size: 14px;
+}
+
+/* Full Popup Background */
+.delete_popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Dark Background */
+.del_popup_bk {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Popup Box */
+.delete_modal {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 35px 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: popupShow 0.3s ease;
+}
+
+/* Delete Icon */
+.delete_icon {
+    width: 80px;
+    height: 80px;
+    background: #ffe5e5;
+    color: #ff3b3b;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+/* Title */
+.delete_modal h2 {
+    margin-bottom: 12px;
+    font-size: 28px;
+    color: #222;
+}
+
+/* Message */
+.delete_modal p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+.delete_btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Cancel Button */
+.cancel_btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    background: #e5e5e5;
+    color: #333;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.cancel_btn:hover {
+    background: #d5d5d5;
+}
+
+/* Delete Button */
+.delete_btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    background: #ff3b3b;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.delete_btn:hover {
+    background: #e12b2b;
+}
+
+/* Animation */
+@keyframes popupShow {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Login Page */
+
+.login_image {
+    width: auto;
+    height: 60px;
+}
+
+.password_box {
+    position: relative;
+}
+
+.password_box .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+    font-size: 18px;
+}
