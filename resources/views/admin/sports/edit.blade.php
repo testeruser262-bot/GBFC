@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-start align-items-center">
 
         <div>
-            <a href="/sports" class="text-secondary">
+            <a href="/admin/sports" class="text-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
             </a>
         </div>

@@ -1,77 +1,110 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PaymentSetupController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
-//  **************** Sports  Module  ***********************
+/*
+|--------------------------------------------------------------------------
+| Login Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/admin/login', [AuthController::class, 'login'])
+    ->name('login');
+
+Route::post('/admin/login', [AuthController::class, 'authenticate'])
+    ->name('authenticate');
+
+Route::get('/admin/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+/*
+|--------------------------------------------------------------------------
+| Redirect Root
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
-    return redirect('/sports');
+    return redirect('/admin/sports');
 });
 
-Route::get('/sports', [SportController::class, 'index']);
+/*
+|--------------------------------------------------------------------------
+| Protected Routes
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/sport/create', function () {
-    return view('admin.sports.create');
-});
+Route::prefix('admin')->middleware('checklogin')->group(function () {
 
-Route::post('/sport/store', [SportController::class, 'store'])->name('sport.store');
+    //  **************** Sports Module ***********************
 
-Route::get('/sport/edit/{id}', [SportController::class, 'edit'])
-    ->name('admin.sport.edit');
+    Route::get('/sports', [SportController::class, 'index']);
 
-Route::put('/sport/update/{id}', [SportController::class, 'update'])->name('sport.update');
+    Route::get('/sport/create', function () {
+        return view('admin.sports.create');
+    });
 
-Route::get('/sport/delete/{id}', [SportController::class, 'destroy'])
-    ->name('sport.delete');
+    Route::post('/sport/store', [SportController::class, 'store'])
+        ->name('sport.store');
 
-//  **************** Team Module  ***********************
+    Route::get('/sport/edit/{id}', [SportController::class, 'edit'])
+        ->name('admin.sport.edit');
 
-Route::get('/teams', [TeamController::class, 'index']);
+    Route::put('/sport/update/{id}', [SportController::class, 'update'])
+        ->name('sport.update');
 
-Route::get('/team/create', function () {
-    return view('admin.team.create');
-});
+    Route::get('/sport/delete/{id}', [SportController::class, 'destroy'])
+        ->name('sport.delete');
 
-Route::post('/team/store', [TeamController::class, 'store'])->name('team.store');
+    //  **************** Team Module ***********************
 
-Route::get('/team/edit/{id}', [TeamController::class, 'edit'])
-    ->name('admin.team.edit');
+    Route::get('/teams', [TeamController::class, 'index']);
 
-Route::post('/team/update/{id}', [TeamController::class, 'update']);
+    Route::get('/team/create', [TeamController::class, 'create'])
+        ->name('team.create');
 
-Route::get('/team/delete/{id}', [TeamController::class, 'destroy'])
-    ->name('players.delete');
+    Route::post('/team/store', [TeamController::class, 'store'])
+        ->name('team.store');
 
-//  **************** Players Module  ***********************
+    Route::get('/team/edit/{id}', [TeamController::class, 'edit'])
+        ->name('admin.team.edit');
 
-Route::get('/players', [PlayerController::class, 'index']);
+    Route::post('/team/update/{id}', [TeamController::class, 'update'])
+        ->name('team.update');
 
-Route::get('/players/create', function () {
-    return view('admin.players.create');
-});
+    Route::get('/team/delete/{id}', [TeamController::class, 'destroy'])
+        ->name('team.delete');
 
-Route::post('/players/store', [PlayerController::class, 'store'])->name('players.store');
+    //  **************** Players Module ***********************
 
-Route::get('/player/edit/{id}', [PlayerController::class, 'edit'])
-    ->name('admin.players.edit');
+    Route::get('/players', [PlayerController::class, 'index']);
 
-Route::put('/player/update/{id}', [PlayerController::class, 'update'])
-    ->name('admin.players.update');
+    Route::get('/players/create', function () {
+        return view('admin.players.create');
+    });
 
-Route::get('/player/delete/{id}', [PlayerController::class, 'destroy'])
-    ->name('players.delete');
+    Route::post('/players/store', [PlayerController::class, 'store'])
+        ->name('players.store');
 
-// Payment Structure
+    Route::get('/player/edit/{id}', [PlayerController::class, 'edit'])
+        ->name('admin.players.edit');
 
-Route::get('/payment', function () {
-    return view('admin.paymentStucture.index');
-});
+    Route::put('/player/update/{id}', [PlayerController::class, 'update'])
+        ->name('admin.players.update');
 
-// Login Module
+    Route::get('/player/delete/{id}', [PlayerController::class, 'destroy'])
+        ->name('players.delete');
 
-Route::get('/login', function () {
-    return view('auth.login');
+    // **************** Payment Structure ****************
+
+    Route::get('/payment', [PaymentSetupController::class, 'create'])
+        ->name('payment.create');
+
+    Route::post('/payment', [PaymentSetupController::class, 'store'])
+        ->name('payment_setup.store');
+
 });

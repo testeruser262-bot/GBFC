@@ -61,7 +61,7 @@
             </div>
 
             <!-- Logout Button -->
-            <a href="#" class="logout-btn">
+            <a href="{{ route('logout') }}" class="logout-btn">
                 <i class="fa fa-sign-out"></i>
                 Logout
             </a>
@@ -86,7 +86,6 @@
     @endif
 
 
-
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -101,9 +100,9 @@ $(document).ready(function () {
 
     let options = {
         weekday: 'long',
-        year: 'numeric',
+        day: 'numeric',
         month: 'long',
-        day: 'numeric'
+        year: 'numeric'
     };
 
     let fullDate = today.toLocaleDateString('en-US', options);
@@ -127,7 +126,11 @@ $(document).ready(function () {
     $(".delete_btn").on('click', function () {
         if(deleteUrl != '') {
             window.location.href = deleteUrl;
-        }
+        } 
+    });
+
+    $(".logout-btn").on('click',function(){
+        $(".site_loader").removeClass("d-none");
     });
 
 });

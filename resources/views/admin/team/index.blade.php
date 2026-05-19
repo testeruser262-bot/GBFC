@@ -7,7 +7,7 @@
         <h4 class="page-heading">
             Teams List
             </h4>
-            <a href="/team/create"
+            <a href="/admin/team/create"
                 class="btn gbsc_btn px-3 py-2 rounded-3">
                 <i class="fa-solid fa-plus me-1"></i> Add
             </a> 
@@ -36,13 +36,13 @@
                             <td class="fw-normal">{{ $row->ageGroup }}</td>
                             <td class="fw-normal">{{ $row->gender ? $row->gender : '-'}}</td>
                             <td class="fw-normal text-center">
-                                <a href="{{ url('team/edit/'.$row->teamId  ) }}" 
+                                <a href="{{ url('admin/team/edit/'.$row->teamId  ) }}" 
                                     title="Edit Team" class="text-primary text-decoration-none"> 
                                     <i class="fa fa-edit"></i> 
                                 </a> 
                                 <span 
                                     class="text-danger ms-2 delete_item"
-                                    data-url="{{ url('team/delete/'.$row->teamId  ) }}"
+                                    data-url="{{ url('admin/team/delete/'.$row->teamId  ) }}"
                                     style="cursor: pointer;">
                                     
                                     <i class="fa fa-trash"></i>

@@ -9,23 +9,23 @@
     <div class="sidebar-menu">
 
         <!-- Sports -->
-        <a href="/sports" 
-          class="{{ request()->is('sport*') || request()->is('/') ? 'active' : '' }}">
+        <a href="/admin/sports" 
+          class="{{ request()->is('admin/sport*') || request()->is('/') ? 'active' : '' }}">
             <i class="fa-solid fa-futbol"></i>
             Sports
         </a>
 
 
         <!-- Teams -->
-        <a href="/teams"
-           class="{{ request()->is('team*') ? 'active' : '' }}">
+        <a href="/admin/teams"
+           class="{{ request()->is('admin/team*') ? 'active' : '' }}">
             <i class="fa-solid fa-people-group me-2"></i>
             Teams
         </a>
 
         <!-- Players -->
-        <a href="/players"
-             class="{{ request()->is('player*') ? 'active' : '' }}">
+        <a href="/admin/players"
+             class="{{ request()->is('admin/player*') ? 'active' : '' }}">
             <i class="fa-solid fa-user me-2"></i>
             Players
         </a>
@@ -33,8 +33,8 @@
 
         <!-- Payment -->
 
-        <a href="/payment" 
-          class="{{ request()->is('payment*') ? 'active' : '' }}">
+        <a href="/admin/payment" 
+          class="{{ request()->is('admin/payment*') ? 'active' : '' }}">
             <i class="fa-solid fa-credit-card"></i>
             Payment SetUp
         </a>

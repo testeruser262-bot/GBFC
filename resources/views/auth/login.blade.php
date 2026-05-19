@@ -22,6 +22,15 @@
 
 <body class="">
 
+     <!-- Loader -->
+    <div class="site_loader d-none">
+        <div class="page-loader">
+            <div class="img-loader">
+                <img src="{{ asset('assets/site/loader_blue.png') }}" alt="Loader">
+            </div>
+        </div>
+    </div>
+
     <div class="container">
 
         <div class="row justify-content-center align-items-center vh-100">
@@ -49,8 +58,7 @@
                         @endif
 
                         <!-- Login Form -->
-                        <form method="POST"
-                              action="">
+                        <form method="POST" action="{{ route('authenticate') }}">
 
                             @csrf
 
@@ -66,7 +74,10 @@
                                            name="email"
                                            class="form-control py-2"
                                            placeholder="Enter Email">
+                                        
                                 </div>
+
+                                <p class="login_email_error error_text"></p>
 
                             </div>
 
@@ -89,6 +100,8 @@
 
                                 </div>
 
+                                 <p class="login_password_error error_text"></p>
+
                             </div>
 
                                                         
@@ -97,7 +110,7 @@
                             <div class="mt-4 pt-2">
 
                                 <button type="submit"
-                                        class="btn gbsc_btn py-3 btn-lg rounded-3 w-100">
+                                        class="btn gbsc_btn py-3 btn-lg rounded-3 w-100 login_btn">
                                     Login
 
                                 </button>
@@ -122,9 +135,11 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <script>
+   <script>
 
         $(document).ready(function(){
+
+            // Show Hide Password
 
             $(".toggle-password").click(function(){
 
@@ -148,10 +163,60 @@
 
             });
 
+
+            // Login Validation
+
+            $("form").submit(function(e){
+
+                let isValid = true;
+
+                $(".login_email_error").text('');
+                $(".login_password_error").text('');
+
+                $(".form-control").removeClass("border-danger");
+
+                let email = $("input[name='email']").val().trim();
+                let password = $("input[name='password']").val().trim();
+
+                // Email Validation
+
+                if(email == ""){
+
+                    isValid = false;
+
+                    $("input[name='email']").addClass("border-danger");
+
+                    $(".login_email_error").text("Email is required");
+
+                }
+
+                // Password Validation
+
+                if(password == ""){
+
+                    isValid = false;
+
+                    $("input[name='password']").addClass("border-danger");
+
+                    $(".login_password_error").text("Password is required");
+
+                }
+
+                // Stop Submit
+
+                if(!isValid){
+
+                    e.preventDefault();
+
+                }else{
+                     $(".site_loader").removeClass("d-none");
+                }
+
+            });
+
         });
 
     </script>
-
 </body>
 
 </html>

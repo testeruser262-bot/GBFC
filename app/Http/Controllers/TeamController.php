@@ -8,7 +8,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $data = DB::table('tb_teams')
+        $data = DB::table('tb_club_teams')
             ->where('status', 'Active')
             ->orderBy('teamId', 'DESC')
             ->get();
@@ -16,39 +16,52 @@ class TeamController extends Controller
         return view('admin.team.index', compact('data'));
     }
 
+    public function create()
+    {
+        $sports = DB::table('tb_club_sports')
+            ->where('status', 'Active')
+            ->orderBy('sportId', 'DESC')
+            ->get();
+
+        return view('admin.team.create', compact('sports'));
+    }
+
     public function store(Request $request)
     {
-
         $request->validate([
             'team_name'   => 'required|string|max:255',
             'age_group'   => 'required',
             'gender'      => 'required',
-            'status'      => 'required',
+            'sportId'     => 'required',
             'description' => 'nullable|string',
         ]);
 
-        DB::table('tb_teams')->insert([
+        DB::table('tb_club_teams')->insert([
             'teamName'    => $request->team_name,
             'ageGroup'    => $request->age_group,
             'description' => $request->description,
             'gender'      => $request->gender,
-            'status'      => $request->status,
+            'sportId'     => $request->sportId,
             'created_at'  => now(),
             'updated_at'  => now(),
         ]);
 
-        return redirect('/teams')
+        return redirect('/admin/teams')
             ->with('success', 'Team created successfully')
             ->with('class', 'alert-success');
     }
 
     public function edit($id)
     {
-        $team = DB::table('tb_teams')
+        $team = DB::table('tb_club_teams')
             ->where('teamId', $id)
             ->first();
 
-        return view('admin.team.edit', compact('team'));
+        $sports = DB::table('tb_club_sports')
+            ->where('status', 'Active')
+            ->get();
+
+        return view('admin.team.edit', compact('team', 'sports'));
     }
 
     public function update(Request $request, $id)
@@ -57,36 +70,36 @@ class TeamController extends Controller
             'team_name'   => 'required|string|max:255',
             'age_group'   => 'required',
             'gender'      => 'required',
-            'status'      => 'required',
+            'sportId'     => 'required',
             'description' => 'nullable|string',
         ]);
 
-        DB::table('tb_teams')
+        DB::table('tb_club_teams')
             ->where('teamId', $id)
             ->update([
                 'teamName'    => $request->team_name,
                 'ageGroup'    => $request->age_group,
                 'gender'      => $request->gender,
-                'status'      => $request->status,
+                'sportId'     => $request->sportId,
                 'description' => $request->description,
                 'updated_at'  => now(),
             ]);
 
-        return redirect('/teams')
+        return redirect('/admin/teams')
             ->with('success', 'Team updated successfully')
             ->with('class', 'alert-success');
     }
 
     public function destroy($id)
     {
-        DB::table('tb_teams')
+        DB::table('tb_club_teams')
             ->where('teamId', $id)
             ->update([
                 'status'     => 'Inactive',
                 'updated_at' => now(),
             ]);
 
-        return redirect('/teams')
+        return redirect('/admin/teams')
             ->with('success', 'Player deactivated successfully')
             ->with('class', 'alert-danger');
     }

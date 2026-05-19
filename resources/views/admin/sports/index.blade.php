@@ -7,7 +7,7 @@
         <h4 class="page-heading">
             Sports List
             </h4>
-            <a href="/sport/create"
+            <a href="/admin/sport/create"
                 class="btn gbsc_btn px-3 py-2 rounded-3">
                 <i class="fa-solid fa-plus me-1"></i> Add
             </a> 
@@ -33,13 +33,13 @@
                             <td class="fw-normal">{{ $row->sportName }}</td>
                           
                             <td class="fw-normal text-center">
-                                <a href="{{ url('sport/edit/'.$row->sportId  ) }}" 
+                                <a href="{{ url('admin/sport/edit/'.$row->sportId  ) }}" 
                                     title="Edit Team" class="text-primary text-decoration-none"> 
                                     <i class="fa fa-edit"></i> 
                                 </a> 
                                 <span 
                                     class="text-danger ms-2 delete_item"
-                                    data-url="{{ url('sport/delete/'.$row->sportId  ) }}"
+                                    data-url="{{ url('admin/sport/delete/'.$row->sportId  ) }}"
                                     style="cursor: pointer;">
                                     
                                     <i class="fa fa-trash"></i>

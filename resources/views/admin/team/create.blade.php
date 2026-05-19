@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-start align-items-center">
 
         <div>
-            <a href="/teams" class="text-secondary">
+            <a href="/admin/teams" class="text-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
             </a>
         </div>
@@ -99,16 +99,19 @@
                 <!-- Status -->
                 <div class="col-md-6 mb-4">
                     <label class="form-label fw-bolder">
-                        Status
+                        Sports
                     </label>
 
-                    <select name="status"
-                            class="form-select form-input-custom py-3 px-3 mt-1"
-                            style="background-color: #f8f9fa; border-radius: 12px; font-size: 13px;">
+                    <select name="sportId"
+                            class="form-select form-input-custom py-3 px-3 mt-1">
 
-                        <option value="">Select Status</option>
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
+                        <option value="">Select Sport</option>
+
+                        @foreach($sports as $sport)
+                            <option value="{{ $sport->sportId }}">
+                                {{ $sport->sportName }}
+                            </option>
+                        @endforeach
 
                     </select>
 

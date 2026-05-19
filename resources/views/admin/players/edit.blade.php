@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-start align-items-center " style="border-radius: 20px;">
 
         <div>
-            <a href="/players" class="text-secondary"> <i class="fa-solid fa-arrow-left me-1"></i></a>
+            <a href="/admin/players" class="text-secondary"> <i class="fa-solid fa-arrow-left me-1"></i></a>
         </div>
 
         <div class="ms-3">

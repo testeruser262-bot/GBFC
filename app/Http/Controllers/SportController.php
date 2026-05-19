@@ -8,7 +8,7 @@ class SportController extends Controller
 {
     public function index()
     {
-        $data = DB::table('tb_sports')
+        $data = DB::table('tb_club_sports')
             ->where('status', 'Active')
             ->orderBy('sportId', 'DESC')
             ->get();
@@ -22,21 +22,21 @@ class SportController extends Controller
             'sportName' => 'required|string|max:255',
         ]);
 
-        DB::table('tb_sports')->insert([
+        DB::table('tb_club_sports')->insert([
             'sportName'  => trim($request->sportName),
             'status'     => 'Active',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        return redirect('/sports')
+        return redirect('/admin/sports')
             ->with('success', 'Sport created successfully')
             ->with('class', 'alert-success');
     }
 
     public function edit($id)
     {
-        $sport = DB::table('tb_sports')
+        $sport = DB::table('tb_club_sports')
             ->where('sportId', $id)
             ->first();
 
@@ -49,28 +49,28 @@ class SportController extends Controller
             'sportName' => 'required|string|max:255',
         ]);
 
-        DB::table('tb_sports')
+        DB::table('tb_club_sports')
             ->where('sportId', $id)
             ->update([
                 'sportName'  => trim($request->sportName),
                 'updated_at' => now(),
             ]);
 
-        return redirect('/sports')
+        return redirect('/admin/sports')
             ->with('success', 'Sport updated successfully')
             ->with('class', 'alert-success');
     }
 
     public function destroy($id)
     {
-        DB::table('tb_sports')
+        DB::table('tb_club_sports')
             ->where('sportId', $id)
             ->update([
                 'status'     => 'Inactive',
                 'updated_at' => now(),
             ]);
 
-        return redirect('/sports')
+        return redirect('/admin/sports')
             ->with('success', 'Player deactivated successfully')
             ->with('class', 'alert-danger');
     }

@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-start align-items-center">
 
         <div>
-            <a href="/teams" class="text-secondary">
+            <a href="/admin/teams" class="text-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
             </a>
         </div>
@@ -33,7 +33,7 @@
         </div>
 
       
-        <form action="{{ url('/team/update/'.$team->teamId) }}" method="POST">
+        <form action="{{ url('/admin/team/update/'.$team->teamId) }}" method="POST">
             @csrf
 
             <div class="row">
@@ -92,18 +92,24 @@
                     <label class="error_text gender_error"></label>
                 </div>
 
-                <!-- Status -->
+                <!-- Sports -->
                 <div class="col-md-6 mb-4">
-                    <label class="form-label fw-bolder">Status</label>
+                    <label class="form-label fw-bolder">
+                        Sports
+                    </label>
 
-                    <select name="status"
+                    <select name="sportId"
                             class="form-select form-input-custom py-3 px-3 mt-1"
                             style="background-color: #f8f9fa; border-radius: 12px; font-size: 13px;">
 
-                        <option value="">Select Status</option>
+                        <option value="">Select Sport</option>
 
-                        <option value="Active" {{ $team->status == 'Active' ? 'selected' : '' }}>Active</option>
-                        <option value="Inactive" {{ $team->status == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                        @foreach($sports as $sport)
+                            <option value="{{ $sport->sportId }}"
+                                {{ $team->sportId == $sport->sportId ? 'selected' : '' }}>
+                                {{ $sport->sportName }}
+                            </option>
+                        @endforeach
 
                     </select>
 
@@ -138,5 +144,7 @@
 
     </div>
 </div>
+
+<script src="{{ asset('js/team-validation.js') }}"></script>
 
 @endsection

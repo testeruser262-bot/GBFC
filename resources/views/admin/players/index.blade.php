@@ -9,7 +9,7 @@
             <h4 class="page-heading">
                 Players List
                 </h4>
-                <a href="/players/create"
+                <a href="/admin/players/create"
                     class="btn gbsc_btn px-3 py-2 rounded-3">
                     <i class="fa-solid fa-plus me-1"></i> Add
                 </a> 
@@ -44,13 +44,13 @@
                                 </td>
                                 <td class="fw-normal">{{ $row->gender ? $row->gender : '-'}}</td>
                                 <td class="fw-normal text-center">
-                                    <a href="{{ url('player/edit/'.$row->playerId ) }}" 
+                                    <a href="{{ url('/admin/player/edit/'.$row->playerId ) }}" 
                                         title="Edit Player" class="text-primary text-decoration-none"> 
                                         <i class="fa fa-edit"></i> 
                                     </a> 
                                     <span 
                                         class="text-danger ms-2 delete_item"
-                                        data-url="{{ url('player/delete/'.$row->playerId ) }}"
+                                        data-url="{{ url('admin/player/delete/'.$row->playerId ) }}"
                                         style="cursor: pointer;">
                                         
                                         <i class="fa fa-trash"></i>

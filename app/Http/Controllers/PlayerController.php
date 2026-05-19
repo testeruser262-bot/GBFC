@@ -8,7 +8,7 @@ class PlayerController extends Controller
 {
     public function index()
     {
-        $data = DB::table('tb_players')
+        $data = DB::table('tb_club_players')
             ->where('status', 'Active')
             ->orderBy('playerId', 'DESC')
             ->get();
@@ -28,7 +28,7 @@ class PlayerController extends Controller
             'gender'     => 'required',
         ]);
 
-        DB::table('tb_players')->insert([
+        DB::table('tb_club_players')->insert([
 
             'firstName'  => $request->first_name,
             'lastName'   => $request->last_name,
@@ -42,14 +42,14 @@ class PlayerController extends Controller
 
         ]);
 
-        return redirect('/players')
+        return redirect('/admin/players')
             ->with('success', 'Player created successfully')
             ->with('class', 'alert-success');
     }
 
     public function edit($id)
     {
-        $player = DB::table('tb_players')
+        $player = DB::table('tb_club_players')
             ->where('playerId', $id)
             ->first();
 
@@ -69,7 +69,7 @@ class PlayerController extends Controller
 
         ]);
 
-        DB::table('tb_players')
+        DB::table('tb_club_players')
             ->where('playerId', $id)
             ->update([
 
@@ -83,21 +83,21 @@ class PlayerController extends Controller
 
             ]);
 
-        return redirect('/players')
+        return redirect('/admin/players')
             ->with('success', 'Player updated successfully')
             ->with('class', 'alert-success');
     }
 
     public function destroy($id)
     {
-        DB::table('tb_players')
+        DB::table('tb_club_players')
             ->where('playerId', $id)
             ->update([
                 'status'     => 'Inactive',
                 'updated_at' => now(),
             ]);
 
-        return redirect('/players')
+        return redirect('/admin/players')
             ->with('success', 'Player deactivated successfully')
             ->with('class', 'alert-danger');
     }
