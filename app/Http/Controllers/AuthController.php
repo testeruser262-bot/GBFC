@@ -30,7 +30,7 @@ class AuthController extends Controller
 
             session([
                 'user_id'   => $user->userId,
-                'user_name' => $user->name,
+                'user_name' => $user->firstName,
             ]);
 
             return redirect('/admin/sports');

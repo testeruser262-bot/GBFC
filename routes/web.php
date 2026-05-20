@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentSetupController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PlayerPaymentController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -107,4 +110,37 @@ Route::prefix('admin')->middleware('checklogin')->group(function () {
     Route::post('/payment', [PaymentSetupController::class, 'store'])
         ->name('payment_setup.store');
 
+    //  **************** Payment Payment ****************
+
+    Route::get('/reg-player-payment', [PlayerPaymentController::class, 'index']);
+
+    Route::get('/admin/player-payment/download/{id}',
+        [PlayerPaymentController::class, 'download']
+    )->name('player-payment.download');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Frontend Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/club-register', [RegisterController::class, 'showRegisterForm'])->name('club-register');
+Route::post('/club-register', [RegisterController::class, 'register']);
+
+Route::get('/club-login', function () {
+    return view('frontend.login');
+});
+
+Route::get('/club-payment', function () {
+    return view('frontend.payment');
+});
+
+Route::get('/payment', [PaymentController::class, 'index']);
+
+Route::post('/stripe-charge', [PaymentController::class, 'charge'])->name('stripe.charge');
+
+Route::get('/club-thanks', function () {
+    return view('frontend.thanku');
 });

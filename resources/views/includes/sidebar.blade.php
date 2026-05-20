@@ -36,7 +36,15 @@
         <a href="/admin/payment" 
           class="{{ request()->is('admin/payment*') ? 'active' : '' }}">
             <i class="fa-solid fa-credit-card"></i>
-            Payment SetUp
+            Payment Setup
+        </a>
+
+        <!-- Player Payment -->
+
+        <a href="/admin/reg-player-payment" 
+          class="{{ request()->is('admin/reg-player-payment*') ? 'active' : '' }}">
+               <i class="fa-solid fa-user-tag me-2"></i>
+            Player Payment
         </a>
 
     </div>
