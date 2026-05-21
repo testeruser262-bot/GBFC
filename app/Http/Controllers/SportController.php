@@ -22,6 +22,19 @@ class SportController extends Controller
             'sportName' => 'required|string|max:255',
         ]);
 
+        $exists = DB::table('tb_club_sports')
+            ->where('sportName', trim($request->sportName))
+            ->where('status', 'Active')
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors([
+                    'sportName' => 'This sport name already exists.',
+                ]);
+        }
+
         DB::table('tb_club_sports')->insert([
             'sportName'  => trim($request->sportName),
             'status'     => 'Active',
@@ -48,6 +61,21 @@ class SportController extends Controller
         $request->validate([
             'sportName' => 'required|string|max:255',
         ]);
+
+        // 🔴 CHECK DUPLICATE (ignore current record)
+        $exists = DB::table('tb_club_sports')
+            ->where('sportName', trim($request->sportName))
+            ->where('status', 'Active')
+            ->where('sportId', '!=', $id)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors([
+                    'sportName' => 'This sport name already exists.',
+                ]);
+        }
 
         DB::table('tb_club_sports')
             ->where('sportId', $id)

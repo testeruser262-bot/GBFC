@@ -40,13 +40,17 @@
                                     title="Edit Team" class="text-primary text-decoration-none"> 
                                     <i class="fa fa-edit"></i> 
                                 </a> 
+                                 <a href="{{ url('admin/team/view/'.$row->teamId  ) }}" 
+                                    title="View Team" class="text-primary text-decoration-none  ms-2 "> 
+                                    <i class="fa fa-eye"></i> 
+                                </a> 
                                 <span 
                                     class="text-danger ms-2 delete_item"
                                     data-url="{{ url('admin/team/delete/'.$row->teamId  ) }}"
                                     style="cursor: pointer;">
                                     
                                     <i class="fa fa-trash"></i>
-                            </span>
+                                 </span>
                             </td>
                         </tr>
                     @empty

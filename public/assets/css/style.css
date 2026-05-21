@@ -12,15 +12,137 @@ body {
 
 /* commom css */
 
+/* --- Custom Popup Base Structures --- */
+/* Backdrop Overlay */
+.gbfc_clus_modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 1050;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+}
+
+/* Modal Wrapper Box - INCREASED SIZE */
+.gbfc_clus_modal-box {
+    background: #ffffff;
+    width: 90%;
+    max-width: 600px; /* Increased from 500px to 650px for more horizontal breathing room */
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-30px);
+    transition: transform 0.25s ease-in-out;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toggle Animation Drivers */
+.gbfc_clus_modal-overlay.gbfc_clus_show {
+    display: flex;
+    opacity: 1;
+}
+.gbfc_clus_modal-overlay.gbfc_clus_show .gbfc_clus_modal-box {
+    transform: translateY(0);
+}
+
+/* Header & Structural Padding Layouts */
+.gbfc_clus_modal-header {
+    padding: 1.75rem 1.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f3f5; /* Clean divider line */
+}
+.gbfc_clus_modal-body {
+    padding: 1.75rem;
+}
+.gbfc_clus_modal-footer {
+    padding: 1.25rem 1.75rem 1.75rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    border-top: 1px solid #f1f3f5; /* Clean divider line */
+}
+
+/* FIXING THE "X" CLOSE BUTTON */
+.gbfc_clus_close-btn {
+    background: #f1f3f5;
+    border: none;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #495057;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Makes it a beautiful clean round button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    line-height: 1;
+    padding: 0;
+}
+.gbfc_clus_close-btn:hover {
+    background: #e9ecef;
+    color: #212529;
+}
+
+/* --- Choices.js Responsive Formatting Tweak --- */
+.gbfc_clus_modal-box .choices__inner {
+    border-radius: 8px !important;
+    padding: 8px !important;
+    min-height: 50px;
+    border-color: #dee2e6 !important;
+}
+
+/* Choices Multi-selected items layout */
+.gbfc_clus_modal-box .choices__list--multiple .choices__item {
+    background-color: #0066cc !important; 
+    border: 1px solid #0056b3 !important;
+    border-radius: 6px !important;
+    padding: 5px 10px !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+}
+
+
+.gbfc_clus_modal-box .choices__list--multiple {
+    max-height: 120px;
+    overflow-y: auto !important;
+}
+
+
+.gbfc_clus_modal-box .choices__list--dropdown {
+    z-index: 2000 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+.gbfc_clus_modal-box .choices__list--dropdown .choices__list {
+    max-height: 180px !important;
+    overflow-y: auto !important;
+}
+
+/* End  */
 .error-border {
     border: 1px solid red !important;
 }
 
 .gbsc_btn {
-    background-color: #002f86;
-    color: #fff;
-    font-size: 15px;
-    padding: 10px 0px;
+    background: linear-gradient(135deg, #002d72, #0056d6);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    transition: 0.3s;
+    font-size: 17px;
+    box-shadow: 0 8px 20px rgba(0, 45, 114, 0.25);
 }
 
 .gbsc_btn:hover {

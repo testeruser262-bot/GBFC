@@ -8,9 +8,16 @@
 
     <div class="sidebar-menu">
 
+          <!-- Event -->
+        <a href="/admin/event" 
+          class="{{ request()->is('admin/event*') || request()->is('/') ? 'active' : '' }}">
+           <i class="fa-solid fa-calendar"></i>
+            Event
+        </a>
+
         <!-- Sports -->
         <a href="/admin/sports" 
-          class="{{ request()->is('admin/sport*') || request()->is('/') ? 'active' : '' }}">
+          class="{{ request()->is('admin/sport*') ? 'active' : '' }}">
             <i class="fa-solid fa-futbol"></i>
             Sports
         </a>

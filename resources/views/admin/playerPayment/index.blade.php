@@ -8,7 +8,7 @@
           <div class="card border-0 shadow-sm p-4 " style="border-radius: 20px;">
             <div class="d-flex justify-content-between align-items-center">
             <h4 class="page-heading">
-                <i class="fa-solid fa-user-tag me-2"></i> Players Payment
+                 Players Payment
                 </h4>
                
             </div>
@@ -23,7 +23,7 @@
                     class="form-control w-100"
                     placeholder="Search users...">
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #002d72, #0056d6);">
                 Search
             </button>
             </div>

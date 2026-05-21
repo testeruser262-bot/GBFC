@@ -17,10 +17,21 @@ class RegisterController extends Controller
     // Handle register
     public function register(Request $request)
     {
-
         try {
 
-            DB::enableQueryLog();
+            $imageName = null;
+
+            // ======================
+            // IMAGE UPLOAD (OPTIONAL)
+            // ======================
+            if ($request->hasFile('image')) {
+
+                $image = $request->file('image');
+
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+                $image->move(public_path('uploads/players'), $imageName);
+            }
 
             $userId = DB::table('tb_club_users')->insertGetId([
                 'roleId'     => 3,
@@ -33,6 +44,22 @@ class RegisterController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
                 'status'     => 'Active',
+            ]);
+
+            $playerId = DB::table('tb_club_players')->insertGetId([
+                'firstName'     => $request->first_name,
+                'lastName'      => $request->last_name,
+                'email'         => $request->email,
+                'phone'         => $request->phone,
+                'parentName'    => $request->parent_name,
+                'parentContact' => $request->parent_contact,
+                'address'       => $request->address,
+                'dob'           => $request->dob,
+                'gender'        => $request->gender,
+                'image'         => $imageName,
+                'created_at'    => now(),
+                'updated_at'    => now(),
+                'status'        => 'Active',
             ]);
 
             session([

@@ -54,7 +54,11 @@
                            placeholder="Enter Sport Name"
                            style="background-color: #f8f9fa; border-radius: 12px;">
 
-                    <label class="error_text sportName_error"></label>
+                     <label class="error_text sportName_error text-danger">
+                        @error('sportName')
+                            {{ $message }}
+                        @enderror
+                    </label>
 
                 </div>
 

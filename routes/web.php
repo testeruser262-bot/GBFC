@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentSetupController;
 use App\Http\Controllers\PlayerController;
@@ -43,6 +44,28 @@ Route::get('/', function () {
 
 Route::prefix('admin')->middleware('checklogin')->group(function () {
 
+    // ******************* Event Module **********************
+
+    Route::get('/event', function () {
+        return view('admin.event.index');
+    });
+
+    Route::get('/event/create', [EventController::class, 'create'])
+        ->name('event.create');
+
+    Route::post('/event/store', [EventController::class, 'store'])
+        ->name('event.store');
+
+    Route::get('/event', [EventController::class, 'index'])
+        ->name('event.index');
+
+    Route::get('/event/edit/{id}', [EventController::class, 'edit'])
+        ->name('event.edit');
+
+    Route::post('/event/update/{id}', [EventController::class, 'update'])->name('event.update');
+
+    Route::get('/event/delete/{id}', [EventController::class, 'delete'])->name('event.delete');
+
     //  **************** Sports Module ***********************
 
     Route::get('/sports', [SportController::class, 'index']);
@@ -81,6 +104,15 @@ Route::prefix('admin')->middleware('checklogin')->group(function () {
 
     Route::get('/team/delete/{id}', [TeamController::class, 'destroy'])
         ->name('team.delete');
+
+    Route::post('/team/{id}/add-players', [TeamController::class, 'addPlayers'])
+        ->name('admin.team.addPlayers');
+
+    Route::get('/team/player/remove/{id}', [TeamController::class, 'removePlayer'])
+        ->name('admin.team.removePlayer');
+
+    Route::get('/team/view/{id}', [TeamController::class, 'teamPlayer'])
+        ->name('team.view');
 
     //  **************** Players Module ***********************
 

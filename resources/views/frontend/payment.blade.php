@@ -1,5 +1,21 @@
 @include('frontend.include.header')
 
+<style>
+    /* Submit Button */
+    .submit-btn {
+        background: linear-gradient(135deg, #002d72, #0056d6);
+        border: none;
+        border-radius: 14px;
+        transition: 0.3s;
+        font-size: 17px;
+        box-shadow: 0 8px 20px rgba(0, 45, 114, 0.25);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+    }
+</style>
+
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 
     <div class="col-md-5">
@@ -86,9 +102,11 @@
                 <!-- TOKEN -->
                 <input type="hidden" name="stripeToken" id="stripeToken">
 
-                <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-semibold mt-3">
+                <button type="submit" class="btn submit-btn text-white w-100 py-3 rounded-3 fw-semibold mt-3">
                     Pay Now
                 </button>
+
+               
 
             </form>
 

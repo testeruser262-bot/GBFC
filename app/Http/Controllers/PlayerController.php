@@ -20,27 +20,56 @@ class PlayerController extends Controller
     {
 
         $request->validate([
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required|email',
-            'phone'      => 'required',
-            'dob'        => 'required',
-            'gender'     => 'required',
-        ]);
-
-        DB::table('tb_club_players')->insert([
-
-            'firstName'  => $request->first_name,
-            'lastName'   => $request->last_name,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
-            'dob'        => $request->dob,
-            'gender'     => $request->gender,
-            'created_at' => now(),
-            'updated_at' => now(),
-            'status'     => 'Active',
+            'first_name'     => 'required|string|max:100',
+            'last_name'      => 'required|string|max:100',
+            'email'          => 'required',
+            'phone'          => 'required|digits:10',
+            'dob'            => 'required|date',
+            'gender'         => 'required',
+            'parent_name'    => 'required|string|max:100',
+            'parent_contact' => 'required|digits:10',
+            'address'        => 'required|string',
+            'image'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 
         ]);
+
+        $imageName = null;
+
+        // IMAGE UPLOAD
+
+        if ($request->hasFile('image')) {
+            $image           = $request->file('image');
+            $imageName       = time() . '_' . $image->getClientOriginalName();
+            $destinationPath = public_path('uploads/players');
+            if (! file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $image->move($destinationPath, $imageName);
+        }
+
+        try {
+
+            DB::table('tb_club_players')->insert([
+                'firstName'     => $request->first_name,
+                'lastName'      => $request->last_name,
+                'email'         => $request->email,
+                'phone'         => $request->phone,
+                'dob'           => $request->dob,
+                'gender'        => $request->gender,
+                'parentName'    => $request->parent_name,
+                'parentContact' => $request->parent_contact,
+                'address'       => $request->address,
+                'image'         => $imageName,
+                'status'        => 'Active',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]);
+
+        } catch (\Exception $e) {
+
+            dd($e->getMessage());
+
+        }
 
         return redirect('/admin/players')
             ->with('success', 'Player created successfully')
@@ -59,33 +88,76 @@ class PlayerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required|email',
-            'phone'      => 'required',
-            'dob'        => 'required',
-            'gender'     => 'required',
-
+            'first_name'     => 'required|string|max:100',
+            'last_name'      => 'required|string|max:100',
+            'email'          => 'required',
+            'phone'          => 'required|digits:10',
+            'dob'            => 'required|date',
+            'gender'         => 'required',
+            'parent_name'    => 'required|string|max:100',
+            'parent_contact' => 'required|digits:10',
+            'address'        => 'required|string',
+            'image'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        DB::table('tb_club_players')
-            ->where('playerId', $id)
-            ->update([
+        try {
 
-                'firstName'  => $request->first_name,
-                'lastName'   => $request->last_name,
-                'email'      => $request->email,
-                'phone'      => $request->phone,
-                'dob'        => $request->dob,
-                'gender'     => $request->gender,
-                'updated_at' => now(),
+            $player = DB::table('tb_club_players')
+                ->where('playerId', $id)
+                ->first();
 
-            ]);
+            if (! $player) {
+                return redirect('/admin/players')
+                    ->with('error', 'Player not found');
+            }
 
-        return redirect('/admin/players')
-            ->with('success', 'Player updated successfully')
-            ->with('class', 'alert-success');
+            $imageName = $player->image;
+
+            // IMAGE UPLOAD
+            if ($request->hasFile('image')) {
+
+                $destinationPath = public_path('uploads/players');
+
+                // delete old image
+                if ($player->image && file_exists($destinationPath . '/' . $player->image)) {
+                    unlink($destinationPath . '/' . $player->image);
+                }
+
+                // create folder if not exists
+                if (! file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+
+                $image     = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move($destinationPath, $imageName);
+            }
+
+            DB::table('tb_club_players')
+                ->where('playerId', $id)
+                ->update([
+                    'firstName'     => $request->first_name,
+                    'lastName'      => $request->last_name,
+                    'email'         => $request->email,
+                    'phone'         => $request->phone,
+                    'dob'           => $request->dob,
+                    'gender'        => $request->gender,
+                    'parentName'    => $request->parent_name,
+                    'parentContact' => $request->parent_contact,
+                    'address'       => $request->address,
+                    'image'         => $imageName,
+                    'updated_at'    => now(),
+                ]);
+
+            return redirect('/admin/players')
+                ->with('success', 'Player updated successfully')
+                ->with('class', 'alert-success');
+
+        } catch (\Exception $e) {
+
+            return redirect('/admin/players')
+                ->with('error', $e->getMessage());
+        }
     }
 
     public function destroy($id)
