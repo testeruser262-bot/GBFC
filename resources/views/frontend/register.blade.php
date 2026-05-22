@@ -188,7 +188,7 @@ body{
                         <!-- Email -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Email Address</label>
-                            <input type="email" name="email" class="form-control py-3" placeholder="Enter Email">
+                            <input type="email" name="email" class="form-control py-3" placeholder="Enter Player Email">
                         </div>
 
                         <!-- Phone -->

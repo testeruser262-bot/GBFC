@@ -33,7 +33,7 @@ class AuthController extends Controller
                 'user_name' => $user->firstName,
             ]);
 
-            return redirect('/admin/sports');
+            return redirect('/admin/event');
         }
 
         return back()->with('error', 'Invalid Email or Password');

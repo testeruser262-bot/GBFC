@@ -1,169 +1,200 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Payment Receipt</title>
+<meta charset="utf-8">
+<title>Invoice Details</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+<style>
 
-        .container {
-            padding: 25px;
-        }
+@page {
+    margin: 100px 0 70px 0;
+}
 
-        /* ================= HEADER ================= */
-        .header-table {
-            width: 100%;
-            border-bottom: 2px solid #0d6efd;
-            padding-bottom: 10px;
-        }
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0d6efd;
-            text-align: left;
-        }
+/* ================= HEADER ================= */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #002d72;
+    color: #fff;
+    padding: 25px 30px;
+}
 
-        .notify {
-            font-size: 12px;
-            color: #777;
-            text-align: right;
-        }
+.header-table {
+    width: 100%;
+    color: #fff;
+}
 
-        .title {
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            padding-top: 10px;
-        }
+.logo {
+    font-size: 45px;
+    font-weight: bold;
+}
 
-        /* ================= DETAILS BOX ================= */
-        .box {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 18px;
-            margin-top: 20px;
-        }
+.right-text {
+    text-align: right;
+    font-size: 12px;
+}
 
-        .box table {
-            width: 100%;
-        }
+/* ================= CONTENT ================= */
+.content {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    text-align: center;
+}
 
-        .box td {
-            padding: 8px 5px;
-        }
+/* ================= TITLE ================= */
+.title {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
-        .amount {
-            color: #198754;
-            font-weight: bold;
-            font-size: 16px;
-        }
+/* ================= BOX ================= */
+.box {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background: #fff;
+    width: 650px;
+    margin: 0 auto;
+    text-align: left;
+}
 
-        .status {
-            background: #d1e7dd;
-            color: #0f5132;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: bold;
-        }
+.box table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-        /* ================= FOOTER ================= */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-top: 1px solid #ddd;
-            padding: 10px 25px;
-            font-size: 11px;
-            color: #888;
-        }
+.box td {
+    padding: 8px 6px;
+}
 
-        .footer-table {
-            width: 100%;
-        }
-    </style>
+.box td:first-child {
+    font-weight: bold;
+    width: 180px;
+}
+
+/* ================= STATUS ================= */
+.amount {
+    color: #198754;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.status {
+    background: #d1e7dd;
+    color: #0f5132;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    border-top: 1px solid #ddd;
+    padding: 10px 30px;
+    color: #777;
+    background: #fff;
+}
+
+/* ================= FOOTER TABLE ================= */
+.footer table {
+    width: 100%;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<div class="container">
-
-    <!-- ================= HEADER ================= -->
+<!-- ================= HEADER ================= -->
+<div class="header">
     <table class="header-table">
-
-        <!-- ROW 1 -->
         <tr>
-            <td class="logo" width="50%">
-                GBFC
-            </td>
-
-            <td class="notify" width="50%">
-                Notify
+            <td class="logo">GBFC</td>
+            <td class="right-text">
+                Invoice Details<br>
+                {{ date('Y-m-d H:i') }}
             </td>
         </tr>
-
-        <!-- ROW 2 -->
-        <tr>
-            <td colspan="2" class="title">
-                PAYMENT DETAIL
-            </td>
-        </tr>
-
     </table>
+</div>
 
-    <!-- ================= DETAILS ================= -->
+<!-- ================= CONTENT ================= -->
+<div class="content">
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h2 class="title">PAYMENT INVOICE</h2>
+ <br/>
     <div class="box">
 
         <table>
 
             <tr>
-                <td><strong>Transaction ID:</strong></td>
+                <td>Transaction ID:</td>
                 <td>{{ $data->transactionId }}</td>
             </tr>
 
             <tr>
-                <td><strong>Name:</strong></td>
+                <td>Name:</td>
                 <td>{{ $data->firstName }} {{ $data->lastName }}</td>
             </tr>
 
             <tr>
-                <td><strong>Email:</strong></td>
+                <td>Email:</td>
                 <td>{{ $data->email }}</td>
             </tr>
 
             <tr>
-                <td><strong>Phone:</strong></td>
+                <td>Phone:</td>
                 <td>{{ $data->phone ?? '-' }}</td>
             </tr>
 
             <tr>
-                <td><strong>Age Group:</strong></td>
+                <td>Age Group:</td>
                 <td>{{ $data->age_group ?? '-' }}</td>
             </tr>
 
             <tr>
-                <td><strong>Amount Paid:</strong></td>
+                <td>Amount Paid:</td>
                 <td class="amount">${{ $data->netAmount }}</td>
             </tr>
 
             <tr>
-                <td><strong>Status:</strong></td>
+                <td>Status:</td>
                 <td>
                     <span class="status">{{ strtoupper($data->status) }}</span>
                 </td>
             </tr>
 
             <tr>
-                <td><strong>Date:</strong></td>
+                <td>Date:</td>
                 <td>
                     {{ \Carbon\Carbon::parse($data->date)->format('d M Y, h:i A') }}
                 </td>
@@ -177,11 +208,19 @@
 
 <!-- ================= FOOTER ================= -->
 <div class="footer">
-    <table class="footer-table">
+    <table width="100%">
         <tr>
-            <td style="text-align:left;">© {{ date('Y') }} GBFC</td>
-            <td style="text-align:center;">System generated receipt</td>
-            <td style="text-align:right;">No signature required</td>
+            <td style="text-align:left; font-size:12px; color:#666;">
+                GBFC • Billing System
+            </td>
+
+            <td style="text-align:center; font-size:12px; color:#666;">
+                Invoice generated automatically
+            </td>
+
+            <td style="text-align:right; font-size:12px; color:#666;">
+                Page generated on {{ date('d M Y') }}
+            </td>
         </tr>
     </table>
 </div>

@@ -173,4 +173,15 @@ class PlayerController extends Controller
             ->with('success', 'Player deactivated successfully')
             ->with('class', 'alert-danger');
     }
+
+    public function checkEmail(Request $request)
+    {
+        $exists = DB::table('tb_club_players')
+            ->where('email', $request->email)
+            ->exists();
+
+        return response()->json([
+            'exists' => $exists,
+        ]);
+    }
 }

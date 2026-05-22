@@ -65,7 +65,15 @@ class PlayerPaymentController extends Controller
             abort(404, 'Payment not found');
         }
 
+        // 1. Load the view file
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.player-payment', compact('data'));
+
+        // 2. CRITICAL FIX: Set paper size and force print layout styles
+        $pdf->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'defaultMediaType'     => 'print', // This forces fixed headers/footers to appear at the page limits
+            ]);
 
         return $pdf->download('payment-' . $id . '.pdf');
     }

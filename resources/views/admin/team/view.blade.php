@@ -11,28 +11,67 @@
 
 <div class="container-fluid">
 
-    <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
-        <div class="d-flex justify-content-start align-items-center">
+    {{-- MODERN HEADER SECTION --}}
+    <div class="card border-0 shadow-sm mb-4 overflow-hidden"
+         style="
+                border-radius: 24px;
+                background: linear-gradient(135deg, #ffffff, #f4f8ff);
+         ">
 
-            <div>
-                <a href="/admin/teams" class="text-secondary text-decoration-none">
-                    <i class="fa-solid fa-arrow-left fs-5"></i>
-                </a>
-            </div>
+        <div class="card-body px-4 py-4">
 
-            <div class="ms-3">
-                <span class="fs-6 text-primary fw-bolder">
-                    Team / View
-                </span>
-                <br/>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-                <span class="fw-bold fs-5">
-                    Manage calendar, games, fees and roster details.
-                </span>
+                {{-- LEFT SIDE --}}
+                <div class="d-flex align-items-center">
+
+                    {{-- BACK BUTTON --}}
+                    <a href="/admin/teams"
+                       class="text-decoration-none d-flex align-items-center justify-content-center shadow-sm"
+                       style="
+                            width: 52px;
+                            height: 52px;
+                            border-radius: 16px;
+                            background: #EEF4FF;
+                            color: #0d6efd;
+                            transition: 0.3s;
+                       ">
+
+                        <i class="fa-solid fa-arrow-left fs-5"></i>
+
+                    </a>
+
+                    {{-- TITLE CONTENT --}}
+                    <div class="ms-3">
+
+
+                        {{-- PAGE TITLE --}}
+                        <h3 class="fw-bold text-dark mb-1">
+
+                            Team View
+
+                        </h3>
+
+                        {{-- SUBTITLE --}}
+                        <span class="text-secondary"
+                              style="font-size: 14px;">
+
+                            Manage calendar, games, fees and roster details.
+
+                        </span>
+
+                    </div>
+
+                </div>
+               
+
             </div>
 
         </div>
+
     </div>
+
+
 
     <div class="card border-0 shadow-sm mt-4" style="border-radius: 20px;">
 
@@ -110,65 +149,143 @@
                                     $month = $start->format('F Y');
                                 @endphp
 
+                                {{-- MONTH HEADING --}}
                                 @if($currentMonth !== $month)
+
                                     <div class="text-center my-4">
-                                        <span class="badge bg-light text-dark border px-3 py-2 fw-bold text-uppercase">
+                                        <span class="badge bg-light text-dark border px-4 py-2 fw-bold text-uppercase shadow-sm">
                                             {{ $month }}
                                         </span>
                                     </div>
+
                                     @php $currentMonth = $month; @endphp
+
                                 @endif
 
-                                <div class="card border-0 shadow-sm rounded-4 mb-3">
-                                    <div class="card-body py-3">
+                                {{-- EVENT CARD --}}
+                                    <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden bg-white">
 
-                                        <div class="row align-items-center">
+                                        <div class="card-body p-3">
 
-                                            <div class="col-md-2 text-center border-end">
-                                                <div class="text-uppercase text-muted small fw-semibold">
-                                                    {{ $start->format('D') }}
-                                                </div>
-                                                <div class="fs-2 fw-bold text-primary lh-1">
-                                                    {{ $start->format('d') }}
-                                                </div>
-                                                <div class="text-muted small">
-                                                    {{ $start->format('M') }}
-                                                </div>
-                                            </div>
+                                            <div class="d-flex align-items-start">
 
-                                            <div class="col-md-7 px-3">
+                                                {{-- EVENT IMAGE --}}
+                                                <div class="me-3 flex-shrink-0">
 
-                                                <h6 class="fw-bold mb-1 text-dark">
-                                                    {{ $event->name }}
-                                                </h6>
+                                                    @if(!empty($event->image))
 
-                                                <div class="text-muted small mb-1">
-                                                    <i class="fa fa-map-marker-alt me-1"></i>
-                                                    {{ $event->location }}
-                                                </div>
+                                                        <img src="{{ asset('uploads/event-images/'.$event->image) }}"
+                                                            alt="Event Image"
+                                                            width="95"
+                                                            height="95"
+                                                            class="rounded-4 shadow-sm"
+                                                            style="object-fit: cover;">
 
-                                                <div class="text-secondary small mb-2">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    {{ $start->format('h:i A') }} - {{ $end->format('h:i A') }}
-                                                </div>
+                                                    @else
 
-                                                <div class="text-muted small">
-                                                    {{ \Illuminate\Support\Str::limit($event->description, 120) }}
+                                                        <img src="https://via.placeholder.com/95"
+                                                            alt="No Image"
+                                                            width="95"
+                                                            height="95"
+                                                            class="rounded-4 shadow-sm"
+                                                            style="object-fit: cover;">
+
+                                                    @endif
+
                                                 </div>
 
-                                            </div>
+                                                {{-- EVENT DETAILS --}}
+                                                <div class="flex-grow-1">
 
-                                            <div class="col-md-3 text-md-end mt-2 mt-md-0">
+                                                    {{-- TOP SECTION --}}
+                                                    <div class="d-flex justify-content-between align-items-start flex-wrap">
 
-                                                <div class="mb-2">
-                                                    <span class="badge bg-primary px-3 py-2">
-                                                        Event
-                                                    </span>
-                                                </div>
+                                                        <div>
 
-                                                <div class="text-muted small">
-                                                    <i class="fa fa-calendar me-1"></i>
-                                                    {{ $start->format('l, d M Y') }}
+                                                            {{-- CATEGORY --}}
+                                                            <span class="badge rounded-pill px-3 py-2 mb-2"
+                                                                style="background-color: #EEF4FF; color: #0d6efd; font-size: 12px;">
+
+                                                                {{ $event->category }}
+
+                                                            </span>
+
+                                                            {{-- EVENT NAME --}}
+                                                            <h5 class="fw-bold text-dark mb-1">
+
+                                                                {{ $event->name }}
+
+                                                            </h5>
+
+                                                        </div>
+
+                                                        {{-- DATE BOX --}}
+                                                        <div class="text-center bg-light rounded-4 px-3 py-2">
+
+                                                            <div class="fw-bold text-primary fs-4 lh-1">
+
+                                                                {{ $start->format('d') }}
+
+                                                            </div>
+
+                                                            <div class="small text-muted">
+
+                                                                {{ $start->format('M') }}
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    {{-- LOCATION --}}
+                                                    <div class="text-muted small mt-3">
+
+                                                        <i class="fa-solid fa-location-dot text-danger me-2"></i>
+
+                                                        {{ $event->location }}
+
+                                                    </div>
+
+                                                    {{-- START & END DATE --}}
+                                                    <div class="d-flex flex-wrap gap-3 mt-2">
+
+                                                        {{-- START DATE --}}
+                                                        <div class="text-muted small">
+
+                                                            <i class="fa-solid fa-calendar-check text-success me-2"></i>
+
+                                                            <span class="fw-semibold">
+                                                                Start:
+                                                            </span>
+
+                                                            {{ $start->format('d M Y') }}
+
+                                                        </div>
+
+                                                        {{-- END DATE --}}
+                                                        <div class="text-muted small">
+
+                                                            <i class="fa-solid fa-calendar-xmark text-danger me-2"></i>
+
+                                                            <span class="fw-semibold">
+                                                                End:
+                                                            </span>
+
+                                                            {{ $end->format('d M Y') }}
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    {{-- DESCRIPTION --}}
+                                                    <p class="text-secondary small mt-3 mb-0"
+                                                    style="line-height: 1.7;">
+
+                                                        {{ \Illuminate\Support\Str::limit($event->description, 110) }}
+
+                                                    </p>
+
                                                 </div>
 
                                             </div>
@@ -176,13 +293,16 @@
                                         </div>
 
                                     </div>
-                                </div>
-
                             @empty
 
-                                <div class="text-center py-5 text-muted">
-                                    <i class="fa fa-calendar-times fa-2x mb-2"></i>
-                                    <div>No events found</div>
+                                <div class="text-center py-5">
+
+                                    <i class="fa-solid fa-calendar-xmark fa-3x text-muted mb-3"></i>
+
+                                    <h5 class="text-muted">
+                                        No Events Found
+                                    </h5>
+
                                 </div>
 
                             @endforelse

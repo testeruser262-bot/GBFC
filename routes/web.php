@@ -33,7 +33,7 @@ Route::get('/admin/logout', [AuthController::class, 'logout'])
 */
 
 Route::get('/', function () {
-    return redirect('/admin/sports');
+    return redirect('/admin/event');
 });
 
 /*
@@ -41,6 +41,9 @@ Route::get('/', function () {
 | Protected Routes
 |--------------------------------------------------------------------------
 */
+
+Route::post('/check-player-email', [PlayerController::class, 'checkEmail'])
+    ->name('check.player.email');
 
 Route::prefix('admin')->middleware('checklogin')->group(function () {
 

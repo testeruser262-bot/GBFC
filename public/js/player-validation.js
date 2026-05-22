@@ -1,3 +1,80 @@
+let emailExists = false;
+
+// EMAIL CHECK
+$(document).on("change", "input[name='email']", function () {
+    let email = $(this).val().trim();
+
+    $(".email_error").text("");
+
+    $("input[name='email']").removeClass("error-border");
+
+    emailExists = false;
+
+    // CHECK EMPTY
+    if (email === "") {
+        return;
+    }
+
+    // EMAIL FORMAT CHECK
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+        $(".email_error").text("Enter valid email");
+
+        $("input[name='email']").addClass("error-border");
+
+        return;
+    }
+
+    // SHOW CHECKING MESSAGE
+    $(".email_error")
+        .removeClass("text-danger text-success")
+        .addClass("text-primary")
+        .text("Checking email...");
+
+    // AJAX CHECK
+    $.ajax({
+        url: "/check-player-email",
+
+        type: "POST",
+
+        data: {
+            email: email,
+            _token: $('meta[name="csrf-token"]').attr("content"),
+        },
+
+        success: function (response) {
+            if (response.exists) {
+                emailExists = true;
+
+                $(".email_error")
+                    .removeClass("text-primary text-success")
+                    .addClass("text-danger")
+                    .text("Email already exists");
+
+                $("input[name='email']").addClass("error-border");
+            } else {
+                emailExists = false;
+
+                $(".email_error")
+                    .removeClass("text-primary text-danger")
+                    .addClass("text-success")
+                    .text("Email available");
+
+                $("input[name='email']").removeClass("error-border");
+            }
+        },
+
+        error: function () {
+            $(".email_error")
+                .removeClass("text-primary text-success")
+                .addClass("text-danger")
+                .text("Something went wrong");
+        },
+    });
+});
+
+// FORM SUBMIT VALIDATION
 $(document).on("submit", "#playerForm", function (e) {
     e.preventDefault();
 
@@ -44,74 +121,102 @@ $(document).on("submit", "#playerForm", function (e) {
     // EMAIL
     if (email === "") {
         $(".email_error").text("Email is required");
+
         $("input[name='email']").addClass("error-border");
+
         isValid = false;
     } else if (!emailPattern.test(email)) {
         $(".email_error").text("Enter valid email address");
+
         $("input[name='email']").addClass("error-border");
+
+        isValid = false;
+    }
+
+    // EMAIL EXISTS CHECK
+    if (emailExists) {
+        $(".email_error").text("Email already exists");
+
+        $("input[name='email']").addClass("error-border");
+
         isValid = false;
     }
 
     // PHONE
     if (phone === "") {
         $(".phone_error").text("Phone number is required");
+
         $("input[name='phone']").addClass("error-border");
+
         isValid = false;
     } else if (!phonePattern.test(phone)) {
         $(".phone_error").text("Enter valid 10 digit phone number");
+
         $("input[name='phone']").addClass("error-border");
+
         isValid = false;
     }
 
     // DOB
     if (dob === "") {
         $(".dob_error").text("Date of birth is required");
+
         $("input[name='dob']").addClass("error-border");
+
         isValid = false;
     }
 
     // GENDER
     if (gender === "") {
         $(".gender_error").text("Please select gender");
+
         $("select[name='gender']").addClass("error-border");
+
         isValid = false;
     }
 
     // PARENT NAME
     if (parent_name === "") {
         $(".parent_name_error").text("Parent name is required");
+
         $("input[name='parent_name']").addClass("error-border");
+
         isValid = false;
     }
 
     // PARENT CONTACT
-
     if (parent_contact === "") {
         $(".parent_contact_error").text("Parent contact is required");
+
         $("input[name='parent_contact']").addClass("error-border");
+
         isValid = false;
     } else if (!phonePattern.test(parent_contact)) {
         $(".parent_contact_error").text("Enter valid 10 digit number");
+
         $("input[name='parent_contact']").addClass("error-border");
+
         isValid = false;
     }
 
     // ADDRESS
-
     if (address === "") {
         $(".address_error").text("Address is required");
+
         $("textarea[name='address']").addClass("error-border");
+
         isValid = false;
     }
 
-    // IMAGE VALIDATION (OPTIONAL)
-
+    // IMAGE VALIDATION
     if (image !== "") {
         let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
         if (!allowedExtensions.exec(image)) {
             $(".image_error").text("Only JPG, JPEG, PNG allowed");
+
             $("input[name='image']").addClass("error-border");
+
             isValid = false;
         }
     }
@@ -119,6 +224,7 @@ $(document).on("submit", "#playerForm", function (e) {
     // FINAL SUBMIT
     if (isValid) {
         $(".site_loader").removeClass("d-none");
+
         this.submit();
     }
 });

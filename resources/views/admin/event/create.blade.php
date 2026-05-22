@@ -34,7 +34,10 @@
 
         <!-- ✅ FIXED ROUTE -->
       
-        <form id="eventForm" action="{{ route('event.store') }}" method="POST">
+        <form id="eventForm"
+            action="{{ route('event.store') }}"
+            method="POST"
+            enctype="multipart/form-data">
             @csrf 
 
             <div class="row">
@@ -52,6 +55,31 @@
                     <label class="error_text event_name_error"></label>
                 </div>
 
+
+              
+
+                <div class="col-md-6 mb-4">
+                    <label class="form-label fw-bolder">
+                        Select Category
+                    </label>
+
+                    <select name="category"
+                            class="form-select form-input-custom py-3 px-3 mt-1"
+                            style="background-color: #f8f9fa; border-radius: 12px; font-size: 13px;">
+
+                        <option value="">Select Category</option>
+                        <option value="Camp">Camp</option>
+                        <option value="Clinic">Clinic</option>
+                        <option value="Tournament">Tournament</option>
+                        <option value="League">League</option>
+                        <option value="Membership">Membership</option>
+
+                    </select>
+
+                    <label class="error_text category_error"></label>
+                </div>
+
+
                 <!-- Location -->
                 <div class="col-md-6 mb-4">
                     <label class="form-label fw-bolder">Location</label>
@@ -65,14 +93,51 @@
                     <label class="error_text location_error"></label>
                 </div>
 
-                <!-- Start Date -->
+                <!-- Pay Later -->
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label fw-bolder">
+                        Pay Later
+                    </label>
+
+                    <select name="pay_later"
+                            class="form-select py-3 px-3 mt-1"
+                            style="background-color:#f8f9fa; border-radius:12px; font-size:13px;">
+
+                        <option value="">
+                            Select Option
+                        </option>
+
+                        <option value="1">
+                            Yes
+                        </option>
+
+                        <option value="0" >
+                            No
+                        </option>
+
+                    </select>
+
+                    <label class="error_text pay_later_error"></label>
+
+                
+
+                </div>
+
+
+
+
+               <!-- Start Date -->
                 <div class="col-md-6 mb-4">
                     <label class="form-label fw-bolder">Start Date</label>
 
-                    <input type="date"
-                           name="start_date"
-                           class="form-control form-input-custom py-3 px-3 mt-1"
-                           style="background-color: #f8f9fa; border-radius: 12px;">
+                    <input type="text"
+                        name="start_date"
+                        id="start_date"
+                        autocomplete="off"
+                        class="form-control form-input-custom py-3 px-3 mt-1"
+                        placeholder="Select Start Date"
+                        style="background-color: #f8f9fa; border-radius: 12px;">
 
                     <label class="error_text start_date_error"></label>
                 </div>
@@ -81,10 +146,13 @@
                 <div class="col-md-6 mb-4">
                     <label class="form-label fw-bolder">End Date</label>
 
-                    <input type="date"
-                           name="end_date"
-                           class="form-control form-input-custom py-3 px-3 mt-1"
-                           style="background-color: #f8f9fa; border-radius: 12px;">
+                    <input type="text"
+                        name="end_date"
+                        id="end_date"
+                        autocomplete="off"
+                        class="form-control form-input-custom py-3 px-3 mt-1"
+                        placeholder="Select End Date"
+                        style="background-color: #f8f9fa; border-radius: 12px;">
 
                     <label class="error_text end_date_error"></label>
                 </div>
@@ -102,6 +170,37 @@
                     <label class="error_text description_error"></label>
                 </div>
 
+            </div>
+
+             <!-- Event Image -->
+            <div class="col-md-6 mb-2">
+                <label class="form-label fw-bolder">
+                    Event Image
+                </label>
+
+                 <!-- Image Preview -->
+                <div class="my-3">
+                    <img id="imagePreview"
+                        src=""
+                        alt="Preview"
+                        class="d-none"
+                        style="width: 180px;
+                                height: 180px;
+                                object-fit: cover;
+                                border-radius: 12px;
+                                border: 1px solid #ddd;">
+                </div>
+
+                <input type="file"
+                    name="event_image"
+                    id="event_image"
+                    accept="image/*"
+                    class="form-control form-input-custom py-3 px-3 mt-1"
+                    style="background-color: #f8f9fa; border-radius: 12px;">
+
+                <label class="error_text event_image_error"></label>
+
+               
             </div>
 
             <!-- Submit -->

@@ -107,14 +107,14 @@
 
                         <label class="form-label fw-bolder">
                             Email Address
-                        </label>
+                        </label> 
 
                         <input type="email"
                                name="email"
                                value="{{ $player->email }}"
                                class="form-control form-input-custom py-3 px-3 mt-1"
                                placeholder="Enter Email Address"
-                               style="background-color: #f8f9fa; border-radius: 12px;">
+                               style="background-color: #f8f9fa; border-radius: 12px;" readonly>
 
                         <label class="error_text email_error"></label>
 

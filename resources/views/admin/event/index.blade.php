@@ -21,9 +21,10 @@
                     <tr>
                         <th class="text-uppercase" style="width:7%">SR NO</th>
                         <th class="text-uppercase" style="width:13%">Event Name</th>
+                        <th class="text-uppercase" style="width:13%">Category</th>
                         <th class="text-uppercase" style="width:13%">Location</th>
                         <th class="text-uppercase" style="width:13%">Start Date</th>
-                         <th class="text-uppercase" style="width:13%">End Date</th>
+                        <th class="text-uppercase" style="width:13%">End Date</th>
                         <th class="text-uppercase text-center px-4" style="width:10%">Actions</th>
                     </tr>
                 </thead>
@@ -34,6 +35,8 @@
                                 <td>{{ $key + 1 }}</td>
 
                                 <td>{{ $event->name ?? '-' }}</td>
+
+                                <td>{{ $event->category ?? '-' }}</td>
 
                                 <td>{{ $event->location ?? '-' }}</td>
 
